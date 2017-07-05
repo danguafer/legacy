@@ -1,0 +1,5 @@
+int32 f(int32 x): x.
+
+int32 main():
+	int32 result: f(25);
+	result.

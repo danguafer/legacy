@@ -1,0 +1,35 @@
+<program>               ::= <declaration> <program> | <declaration>
+
+<declaration>           ::= <uniform-declaration> | <attribute-declaration> | <function-declaration> | <variable-declaration>
+<attribute-declaration> ::= "attribute " <identifier> " " <identifier> ";"
+<uniform-declaration>   ::= "uniform " <identifier> " " <identifier> ";"
+<variable-declaration>  ::= <identifier> " " <identifier> ";"
+
+<function-declaration>  ::= <identifier> " " <identifier> "(" <function-parameters> ")" <ows> <execution-block>
+<function-parameters>   ::= <function-parameter> "," <function-parameters> | <function-parameter>
+<function-parameter>    ::= <identifier> " " <identifier> " " <identifier> | <identifier> " " <identifier> | "void" | ""
+
+<execution-block>       ::= "{" <command-list> "}"
+<command-list>          ::= <command> ";" <command-list> | <command>
+<command>               ::= <attribution> | ""
+
+<attribution>           ::= <identifier> <ows> "=" <ows> <expression> ";"
+
+<expression>            ::= <term>
+
+<term>                  ::= <function-call> | <identifier> | <number>
+
+<function-call>         ::= <identifier> "(" <call-parameters> ")"
+<call-parameters>       ::= <call-parameter> "," <ows> <call-parameters> | <call-parameter>
+<call-parameter>        ::= <expression> | ""
+
+<identifier>            ::= <alphabet> <int> <identifier> | <alphabet> <identifier> | <alphabet> <int> | <alphabet>
+
+<alphabet>              ::= "Q" | "W" | "E" | "R" | "T" | "Y" | "U" | "I" | "O" | "P" | "A" | "S" | "D" | "F" | "G" | "H" | "J" | "K" | "L" | "Z" | "X" | "C" | "V" | "B" | "N" | "M" | "q" | "w" | "e" | "r" | "t" | "y" | "u" | "i" | "o" | "p" | "a" | "s" | "d" | "f" | "g" | "h" | "j" | "k" | "l" | "z" | "x" | "c" | "v" | "b" | "n" | "m"
+
+<number>			::= <float> | <int>
+<float>				::= <int> "." <int>
+<int>				::= <digit> <int> | <digit>
+
+<digit>				::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+<ows>                   ::= " " <ows> | ""

@@ -1,0 +1,6 @@
+#ifndef SILEXARS_AENGINE_CONTROLLERS_H
+#define SILEXARS_AENGINE_CONTROLLERS_H
+
+#include "Controller.h"
+
+#endif // CONTROLLERS_H

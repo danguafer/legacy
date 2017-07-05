@@ -1,0 +1,7 @@
+#ifndef SILEXARS_SYSTEM_IO_DEVICES_AUDIODEVICES_AUDIODEVICES_H_
+#define SILEXARS_SYSTEM_IO_DEVICES_AUDIODEVICES_AUDIODEVICES_H_
+
+#include "AudioDevice.h"
+#include "AudioPlayback.h"
+
+#endif

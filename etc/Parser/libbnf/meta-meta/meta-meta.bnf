@@ -1,0 +1,66 @@
+<program>				::= <program-declarations>
+<program-declarations>	::= <opt-whitespace> <function-definition> <opt-whitespace> <program-declarations>
+<program-declarations>	::= <opt-whitespace> <function-declaration> <opt-whitespace> <program-declarations>
+<program-declarations>	::= <opt-whitespace> <variable-declaration> <opt-whitespace> ";" <opt-whitespace> <program-declarations>
+<program-declarations>	::= <function-definition> | <function-declaration> | <variable-declaration>
+
+<variable-declaration>	::= <identifier> " " <opt-whitespace> <variable-decl-list>
+<variable-decl-list>	::= <identifier> <opt-whitespace> "," <opt-whitespace> <variable-decl-list>
+<variable-decl-list>	::= <variable-assign> <opt-whitespace> "," <opt-whitespace> <variable-decl-list>
+<variable-decl-list>	::= <variable-assign> | <identifier>
+
+<variable-assign>		::= <identifier> <opt-whitespace> ":" <opt-whitespace> <value> <opt-whitespace>
+
+<function-declaration>	::= <identifier> <opt-whitespace> <identifier> <opt-whitespace> "(" <opt-whitespace> <function-decl-param> <opt-whitespace> ")" <opt-whitespace> <command-block>
+<function-declaration>	::= <identifier> <opt-whitespace> <identifier> <opt-whitespace> "(" <opt-whitespace> <function-decl-param> <opt-whitespace> ")" <opt-whitespace> ";"
+<function-decl-param>	::= <function-decl-params> | "\0"
+<function-decl-params>	::= <identifier> " " <opt-whitespace> <identifier> <opt-whitespace> "," <opt-whitespace> <function-decl-params>
+<function-decl-params>	::= <identifier> " " <opt-whitespace> <identifier>
+
+<function-definition>	::= <identifier> <opt-whitespace> "(" <opt-whitespace> <function-def-param> <opt-whitespace> ")" <opt-whitespace> <command-block>
+<function-def-param>	::= <function-def-params> | "\0"
+<function-def-params>	::= <identifier> <opt-whitespace> "," <opt-whitespace> <function-def-params> | <identifier>
+
+<explicit-return>		::= "return " <opt-whitespace> <value> | "return"
+
+<command>				::= <variable-declaration> | <variable-assign> | <function-usage> | <explicit-return> | <value>
+<command-block>			::= ":" <opt-whitespace> <command-block-list> <opt-whitespace> "."
+<command-block-list>	::= <command> <opt-whitespace> ";" <opt-whitespace> <command-block-list> | <command> | "\0"
+
+<function-usage>		::= <identifier> <opt-whitespace> "(" <opt-whitespace> <function-u-parameter> <opt-whitespace> ")"
+<function-u-parameter>	::= <function-u-parameters> | "\0"
+<function-u-parameters>	::= <value> <opt-whitespace> "," <opt-whitespace> <function-u-parameters> | <value>
+
+<identifier>			::= <identifier-c1> <identifier-cn> | <identifier-c1>
+<identifier-c1>			::= <alphabet-character> | "_"
+<identifier-cn>			::= <alphabet-character> <identifier-cn> | <digit> <identifier-cn> | "_" <identifier-cn> | <alphabet-character> | <digit> | "_"
+
+<value>					::= <number> | <function-usage> | <identifier>
+
+<operation>				::= <addition> | <subtraction> | <multiplication> | <division>
+<addition>				::= <value> <opt-whitespace> "+" <opt-whitespace> <value>
+<subtraction>			::= <value> <opt-whitespace> "-" <opt-whitespace> <value>
+<multiplication>		::= <value> <opt-whitespace> "*" <opt-whitespace> <value>
+<division>				::= <value> <opt-whitespace> "/" <opt-whitespace> <value>
+<negation>				::= "-" <opt-whitespace> <value>
+
+<comparation>			::= <cmp-equal> | <cmp-different> | <cmp-greater> | <cmp-greater-equal> | <cmp-less> | <cmp-less-equal> | <cmp-negation>
+<cmp-equal>				::= <value> <opt-whitespace> "==" <opt-whitespace> <value>
+<cmp-different>			::= <value> <opt-whitespace> "!-" <opt-whitespace> <value>
+<cmp-greater>			::= <value> <opt-whitespace> ">" <opt-whitespace> <value>
+<cmp-greater-equal>		::= <value> <opt-whitespace> ">=" <opt-whitespace> <value>
+<cmp-less>				::= <value> <opt-whitespace> "<"<opt-whitespace> <value>
+<cmp-less-equal>		::= <value> <opt-whitespace> "<=" <opt-whitespace> <value>
+<cmp-negation>			::= "!" <opt-whitespace> <value>
+
+<number>				::= <real> | <integer>
+<real>					::= <number-signal> <unsigned-integer> "." <unsigned-integer> | <unsigned-integer> "." <unsigned-integer>
+<integer>				::= <number-signal> <unsigned-integer> | <unsigned-integer>
+<unsigned-integer>		::= <digit> <integer> | <digit>
+<number-signal>			::= "+" | "-"
+
+<printable-character>	::= <alphabet-character> | <digit> | " " | "!" | '"' | "#" | "$" | "%" | "&" | "'" | "(" | ")" | "*" | "+" | "," | "-" | "." | "/" | "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | ":" | ";" | "<" | "=" | ">" | "?" | "@" | "[" | "\" | "]" | "^" | "_" | "`" | "{" | "|" | "}" | "~"
+<alphabet-character>	::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z" | "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z"
+<digit>					::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+<opt-whitespace>		::= " " <opt-whitespace> | "\t" <opt-whitespace> | <EOL> <opt-whitespace> | " " | "\t" | <EOL> | "\0"
+<EOL>					::= "\r\n" | "\n"

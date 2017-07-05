@@ -1,0 +1,8 @@
+#ifndef SILEXARS_SYSTEM_IO_NET_APPLICATION_APPLICATION_H
+#define SILEXARS_SYSTEM_IO_NET_APPLICATION_APPLICATION_H
+
+#include "ApplicationCommunicator.h"
+// HTTP
+// WebSocket
+
+#endif // APPLICATION_H

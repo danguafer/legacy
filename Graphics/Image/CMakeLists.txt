@@ -1,0 +1,13 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+PROJECT("Silexars Graphics Image")
+
+INCLUDE("../../Silexars.cmake")
+
+AUX_SOURCE_DIRECTORY(. SOURCES)
+AUX_SOURCE_DIRECTORY(third-party/png SOURCES)
+AUX_SOURCE_DIRECTORY(third-party/zlib-1.2.8 SOURCES)
+
+INCLUDE_DIRECTORIES(third-party/png)
+INCLUDE_DIRECTORIES(third-party/zlib-1.2.8)
+
+ADD_SILEXARS_LIBRARY(SilexarsGraphicsImage ${SOURCES})

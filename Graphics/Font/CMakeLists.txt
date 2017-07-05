@@ -1,0 +1,12 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+
+PROJECT("Silexars Graphics Font")
+
+INCLUDE("../../Silexars.cmake")
+
+AUX_SOURCE_DIRECTORY(. SOURCES)
+ADD_SUBDIRECTORY(third-party/freetype-2.6)
+INCLUDE_DIRECTORIES(third-party/freetype-2.6/include)
+ADD_SILEXARS_LIBRARY(SilexarsGraphicsFont ${SOURCES})
+
+ADD_CUSTOM_COMMAND(TARGET SilexarsGraphicsFont COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:freetype> "${SILEXARS_PATH}/lib/${SILEXARS_TARGET_SYSTEM}/${SILEXARS_TARGET_ARCH}/libfreetype.a")

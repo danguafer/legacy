@@ -1,0 +1,6 @@
+#ifndef SILEXARS_AENGINE_MANAGERS_MANAGERS_H
+#define SILEXARS_AENGINE_MANAGERS_MANAGERS_H
+
+#include "ResourceManager.h"
+
+#endif // MANAGERS_H

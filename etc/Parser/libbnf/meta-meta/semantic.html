@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style type="text/css">
+			body {
+				font-family: Arial;
+				margin: 40px;
+			}
+			#page {
+				text-align: left;
+				width: 760px;
+				padding: 20px;
+				background-color: white;
+				border: 1px solid black;
+				border-radius: 5px;
+				box-shadow: 0px 0px 40px #aaa;
+				text-shadow: 1px 1px 1px #aaa;
+			}
+			.code {
+				margin-left: 40px;
+				font-family: monospace;
+			}
+			b {
+				position: absolute;
+				
+				webkit-transform: rotate(45deg);
+			}
+		</style>
+	</head>
+	<body>
+		<center>
+			<div id="page">
+				<center>
+					<h2>Meta-meta: Descrição Semântica</h1>
+				</center>
+				A descrição semântica aqui apresentada será passada através de exemplos. Comentários, quando necessários, acompanharão o código e seguirão a definição de &lt;comment-line&gt;.
+
+				<h4>&lt;variable-declaration&gt;</h4>
+
+				A declaração de variável, ainda que não faça inicialização, considera múltiplas variáveis, estas quais podem ser definidas também como arrays.
+				Um exemplo de declaração de variável, considerando o identificador "number" como um tipo atômico, seria como segue:<br/><br/>
+
+				<div class="code">
+					number a;</br>
+					number b: 0; // Declara b e inicializa com 0</br>
+					number resultado,vetor[128];</br>
+				</div>
+				
+				<h4>&lt;value-assignment&gt;</h4>
+
+				Atribuição de valores à uma variável em meta-meta pode ser dada através da seguinte forma:</br></br>
+
+				<div class="code">
+					number a: 2; // atribui 16 à variável "a"</br>
+					number b: 32; // atribui 32 à variável "b"</br>
+					number resultado,vetor[128]: 64; // inicializa o vetor inteiro com o valor 64</br>
+					resultado: a*b+vetor[0]; // atribui a*b+vetor[0] <=> 2*32+64 = 128 à variável resultado</br>
+				</div>
+
+				<h4>&lt;function-declaration&gt; & &lt;explicit-return&gt;</h4>
+
+				A declaração de função, considerando a existência do tipo atômico "number" é feita da seguinte forma:</br></br>
+				
+				<div class="code">
+					number getTime();</br>
+					number sqrt(number x);</br>
+				</div><br/>
+				
+				O retorno de valor em uma função é realizado utilizando um comando apenas com um valor ou explicitamente com o comando "return":</br></br>
+
+				<div class="code">
+					number getPI(): 3.141592653589793.</br>
+					number getPI(): return 3.141592653589793.</br>
+				</div>
+				
+				<h4>&lt;function-definition&gt;</h4>
+
+				A definição da função pode ser feita omitindo os tipos de retorno e des seus parâmetros. Por exemplo:<br/><br/>				
+				
+				<div class="code">
+					number f(number x);<br/>
+					f(x): x*x.
+				</div>
+					
+				<h4>&lt;function-usage&gt;</h4>
+				
+				O uso de funções, é dado da seguinte forma: </br>
+				(Obs.: Nota-se que já estou perdendo a paciência de escrever textos longos...)</br></br>
+				
+				<div class="code">
+					number sqrt(number x);</br>
+					number abs(number x): sqrt(x*x).</br>
+					number sign(number x):</br>
+						<div class="code">
+							number length: abs(x*x);</br>
+							x/length.</br>
+						</div>
+					</br>
+				</div>
+				
+				</br>
+			</div>
+		</center>
+		<script type="text/javascript">
+			var page = document.getElementById("page");
+			var a = [];
+			function generate() {
+				var b = document.createElement("b");
+				b.vx = Math.random()-0.5;
+				b.vy = Math.random()-0.5;
+				var len = Math.sqrt(b.vx*b.vx+b.vy*b.vy);
+				b.vx/=len;
+				b.vy/=len;
+				b.vx *= 2;
+				b.vy *= 2;
+				b.innerHTML = "o";
+				
+				b.style.left = (page.offsetLeft+Math.random()*page.offsetWidth)+"px";
+				b.style.top = page.offsetTop+"px";
+				page.insertBefore(b,page.firstChild);
+				a.push(b);
+			}
+						
+			TIME = 10;
+			function start() {
+				t0 = Date.now();
+				setInterval(function() {
+					var dt = Date.now()-t0;
+					if (dt >= TIME) {
+						generate();
+						t0 += dt;
+					}
+					for (var i=0; i < a.length; i++) {
+						var b = a[i];
+						var opacity = (b.offsetTop*4)/innerHeight;
+						if (opacity > 1) {
+							page.removeChild(b);
+							continue;
+						}
+						b.vy += 0.2;
+						var x = b.offsetLeft+b.vx;
+						var y = b.offsetTop+b.vy;
+						b.style.opacity = 1-opacity;
+						b.style.left = x+"px";
+						b.style.top  = y+"px";
+					}
+				},33);
+			}
+			var commands = [38,38,40,40,37,39,37,39,66,65];
+			var currentCommand = 0;
+			document.body.onkeydown=function(e) {
+				if (e.keyCode == commands[currentCommand]) {
+					currentCommand++;
+					e.preventDefault();
+				} else currentCommand = 0;
+				if (currentCommand == commands.length) {
+					document.body.onkeydown = undefined;
+					start();
+				}
+			}
+		</script>
+	</body>
+</html>
